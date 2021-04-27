@@ -11,10 +11,15 @@ const obj = {
     },
     start()
     {
-        setInterval(()=> {
+        this.timerID = setInterval(()=> {
             console.log(this.pick());
         }, 3000)
+    },
+    stop()
+    {
+        clearInterval(this.timerID)
     }
 }
 
 obj.start()
+obj.stop()
