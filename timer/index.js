@@ -16,12 +16,23 @@ class Timer
     }
 
     tick = () => {
-        let countdown = parseInt(this.durationInput.value);        
-        if(this.durationInput.value > 0) this.durationInput.value = countdown - 1;
+        let countdown = this.timeRemaining;
+        if(this.timeRemaining > 0) this.timeRemaining = countdown - 1;
     }
 
     pause = () => {
         clearInterval(this.interval);
+    }
+
+    //use setters and getters
+    get timeRemaining()
+    {
+        return parseFloat(this.durationInput.value);
+    }
+
+    set timeRemaining(time)
+    {
+        this.durationInput.value = time;
     }
 }
 
