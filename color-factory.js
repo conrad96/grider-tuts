@@ -20,6 +20,7 @@
 // console.log(c1.hex());
 // console.log(c1.rgb());
 
+//class implementation
 class makeColor 
 {
     constructor(r, g, b)
