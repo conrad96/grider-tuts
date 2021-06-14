@@ -1,6 +1,6 @@
 class Timer
 {
-    constructor(durationInput, startButton, pauseButton)
+    constructor(durationInput, startButton, pauseButton, callbacks)
     {
         this.durationInput = durationInput;
         this.startButton = startButton;
@@ -8,16 +8,35 @@ class Timer
 
         this.startButton.addEventListener('click', this.start);
         this.pauseButton.addEventListener('click', this.pause);
+
+        //callbacks
+        if(callbacks)
+        {
+            this.onStart = callbacks.onStart
+            this.onTick = callbacks.onTick
+            this.onComplete = callbacks.onComplete
+        }
     }
 
     start = () => {
+        this.onStart();
+
         this.tick();
-        this.interval = setInterval(this.tick, 1000);
+        this.interval = setInterval(this.tick, 50);
     }
 
     tick = () => {
         let countdown = this.timeRemaining;
-        if(this.timeRemaining > 0) this.timeRemaining = countdown - 1;
+
+        if(this.timeRemaining > 0)
+        {
+            this.onTick();
+            this.timeRemaining = countdown - 0.05;
+        }else {
+            //completed
+            this.onComplete();
+            this.pause();
+        }
     }
 
     pause = () => {
@@ -32,7 +51,7 @@ class Timer
 
     set timeRemaining(time)
     {
-        this.durationInput.value = time;
+        this.durationInput.value = time.toFixed(2);
     }
 }
 
@@ -40,4 +59,22 @@ let startBtn = document.querySelector('#start');
 let pauseBtn = document.querySelector('#pause');
 let duration = document.querySelector('#duration');
 
-const obj = new Timer(duration, startBtn, pauseBtn);
+//DOM clock
+let circle = document.querySelector('circle');
+let radius = circle.getAttribute('r');
+let perimeter = 2 * Math.PI * radius;
+
+let current = 0;
+
+const obj = new Timer(duration, startBtn, pauseBtn, {
+ onStart () {
+   console.log('started'); 
+},
+ onTick(){
+    circle.setAttribute('stroke-dashoffset', current);
+    current -= 1;
+ },
+  onComplete(){
+    console.log('completed'); 
+ }
+});
