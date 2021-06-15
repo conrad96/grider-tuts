@@ -19,7 +19,7 @@ class Timer
     }
 
     start = () => {
-        this.onStart();
+        this.onStart(this.timeRemaining);
 
         this.tick();
         this.interval = setInterval(this.tick, 50);
@@ -30,7 +30,7 @@ class Timer
 
         if(this.timeRemaining > 0)
         {
-            this.onTick();
+            this.onTick(this.timeRemaining);
             this.timeRemaining = countdown - 0.05;
         }else {
             //completed
@@ -64,15 +64,18 @@ let circle = document.querySelector('circle');
 let radius = circle.getAttribute('r');
 let perimeter = 2 * Math.PI * radius;
 
-let current = 0;
+let durationT = 0;
 
 const obj = new Timer(duration, startBtn, pauseBtn, {
- onStart () {
-   console.log('started'); 
+ onStart (totalDuration) {
+   durationT = totalDuration;
 },
- onTick(){
-    circle.setAttribute('stroke-dashoffset', current);
-    current -= 1;
+ onTick(timeRemaining){
+    //make offset complete to end of circle        
+    let timeDiff = durationT - timeRemaining;
+    let offset = perimeter * timeRemaining / timeDiff ;
+    console.log(offset);
+    circle.setAttribute('stroke-dashoffset', offset);
  },
   onComplete(){
     console.log('completed'); 
