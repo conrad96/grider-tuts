@@ -10,13 +10,25 @@ let fetchData = async(movie) => {
         }
     });
 
-    console.log(response.data);
+    return response.data.Search;
 }
 
 let input = document.querySelector('input');
 
-let onInput = evt => {
-    fetchData(evt.target.value);
+let onInput = async evt => {
+    const movies = await fetchData(evt.target.value);
+    
+    for(let movie of movies)
+    {
+        const div = document.createElement('div');
+        div.innerHTML = `
+        <img src="${movie.Poster}" style="width: 300px; height: 250px;" />
+        <h1>${movie.Title}</h1>
+        <h3>${movie.Year}</h3>
+        `;
+
+        document.querySelector('#movie-canvas').appendChild(div);
+    }
 }
 
 input.addEventListener('input', wait(onInput, 1000));
