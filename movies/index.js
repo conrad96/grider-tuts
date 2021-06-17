@@ -64,3 +64,11 @@ let onInput = async evt => {
 }
 
 input.addEventListener('input', wait(onInput, 1000));
+
+//hide dropdown isf user clicks outside dropdown
+document.addEventListener('click', evt=> {
+    if(!root.contains(evt.target))
+    {
+        dropdown.classList.remove('is-active');
+    }
+})
