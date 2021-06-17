@@ -68,6 +68,13 @@ let onInput = async evt => {
         <img src="${poster}" />
         ${movie.Title}`;
 
+        //set movie title in input field and close dropdown
+        item.addEventListener('click', ()=> {
+            dropdown.classList.remove('is-active');
+            input.value = movie.Title;
+            results.innerHTML = '';
+        })
+
         results.appendChild(item);
     }
 }
