@@ -35,6 +35,7 @@ let input = document.querySelector('input');
 let dropdown = document.querySelector('.dropdown');
 let results = document.querySelector('.results');
 let totalResultsEle = document.querySelector('#search-results');
+let canvas = document.querySelector('#movie-canvas');
 let total = 0;
 
 let onInput = async evt => {
@@ -73,6 +74,7 @@ let onInput = async evt => {
             dropdown.classList.remove('is-active');
             input.value = movie.Title;
             results.innerHTML = '';
+            movieSelector(movie);
         })
 
         results.appendChild(item);
@@ -88,3 +90,18 @@ document.addEventListener('click', evt=> {
         dropdown.classList.remove('is-active');
     }
 })
+
+let movieSelector = movie =>
+{    
+    let img = movie.Poster == 'N/A'? '' : movie.Poster;
+
+    canvas.innerHTML = `
+    <div class="movie-details">
+        <img src="${img}" />
+        <br />
+        <strong>Title: ${movie.Title}<br /></strong>
+        Year: ${movie.Year}<br />
+        Type: ${movie.Type}<br />
+    </div>
+    `;
+}
