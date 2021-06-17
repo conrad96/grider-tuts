@@ -21,8 +21,8 @@ let fetchData = async(movie) => {
 let root = document.querySelector('#auto-complete');
 
 root.innerHTML = `
-<label>Search Movie&nbsp;&nbsp; <div id="search-results"></div></label><p />
-<input type="text" name="search" />
+<label for="movie">Search Movie&nbsp;&nbsp; <div id="search-results"></div></label><p />
+<input id="movie" type="text" name="search" />
 <div class="dropdown">
     <div class="dropdown-menu">
         <div class="dropdown-content results">            
@@ -38,12 +38,21 @@ let totalResultsEle = document.querySelector('#search-results');
 let total = 0;
 
 let onInput = async evt => {
+    //clear results div
+    results.innerHTML = '';
+    totalResultsEle.innerHTML = '';
+
     const searchResults = await fetchData(evt.target.value);
     const movies = searchResults.data;
     total = searchResults.results;
 
-    //clear results div
-    results.innerHTML = '';
+    //if no movies close dropdown
+    if(!movies.length)
+    {
+        dropdown.classList.remove('is-active');
+        return false;
+    }
+   
     totalResultsEle.innerHTML = `${total} results`;
 
     dropdown.classList.add('is-active');
