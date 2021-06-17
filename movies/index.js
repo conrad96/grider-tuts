@@ -9,19 +9,24 @@ let fetchData = async(movie) => {
             apikey: '7664928d'
         }
     });
-
-    return response.data.Search;
+    
+    if(response.data.Error){
+        response.data.Search = [];
+        response.data.totalResults = 0;
+    }
+    
+    return {data: response.data.Search, results: response.data.totalResults};
 }
 
 let root = document.querySelector('#auto-complete');
 
 root.innerHTML = `
-<label>Search Movie</label><p />
+<label>Search Movie&nbsp;&nbsp; <div id="search-results"></div></label><p />
 <input type="text" name="search" />
 <div class="dropdown">
     <div class="dropdown-menu">
         <div class="dropdown-content results">            
-        </div>    
+        </div>
     </div>
 </div>
 `;
@@ -29,9 +34,15 @@ root.innerHTML = `
 let input = document.querySelector('input');
 let dropdown = document.querySelector('.dropdown');
 let results = document.querySelector('.results');
+let totalResultsEle = document.querySelector('#search-results');
+let total = 0;
 
 let onInput = async evt => {
-    const movies = await fetchData(evt.target.value);
+    const searchResults = await fetchData(evt.target.value);
+    const movies = searchResults.data;
+    total = searchResults.results;
+
+    totalResultsEle.innerHTML = `${total} results`;
 
     dropdown.classList.add('is-active');
 
