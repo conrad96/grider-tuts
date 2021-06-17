@@ -53,8 +53,10 @@ let onInput = async evt => {
         const item = document.createElement('a');
         item.classList.add('dropdown-item');
 
+        let poster = movie.Poster == 'N/A'? '' : movie.Poster;
+
         item.innerHTML = `
-        <img src="${movie.Poster}" />
+        <img src="${poster}" />
         ${movie.Title}`;
 
         results.appendChild(item);
