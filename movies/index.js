@@ -14,7 +14,7 @@ let fetchData = async(movie) => {
         response.data.Search = [];
         response.data.totalResults = 0;
     }
-    
+
     return {data: response.data.Search, results: response.data.totalResults};
 }
 
@@ -42,6 +42,8 @@ let onInput = async evt => {
     const movies = searchResults.data;
     total = searchResults.results;
 
+    //clear results div
+    results.innerHTML = '';
     totalResultsEle.innerHTML = `${total} results`;
 
     dropdown.classList.add('is-active');
