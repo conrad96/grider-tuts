@@ -4,6 +4,20 @@
   margin: auto;
 }
 
+.dropdown
+{
+  width: 100%;
+}
+
+a {
+  margin-bottom: 5px;
+}
+
+input {
+  width: 50%;
+  height: 30px;
+}
+
 figure.image {
   display: flex;
   justify-content: center;
