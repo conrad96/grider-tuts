@@ -91,17 +91,18 @@ document.addEventListener('click', evt=> {
     }
 })
 
-let movieSelector = movie =>
-{    
-    let img = movie.Poster == 'N/A'? '' : movie.Poster;
+let movieSelector = async movie =>
+{   
+    let resp = await axios.get('http://www.omdbapi.com/', {
+        params: {
+            i: movie.imdbID,
+            apikey: '7664928d'
+        }
+    });
 
-    canvas.innerHTML = `
-    <div class="movie-details">
-        <img src="${img}" />
-        <br />
-        <strong>Title: ${movie.Title}<br /></strong>
-        Year: ${movie.Year}<br />
-        Type: ${movie.Type}<br />
-    </div>
-    `;
+   movieDetail(resp.data);
+}
+
+let movieDetail = movieObj => {
+    console.log(movieObj);
 }
