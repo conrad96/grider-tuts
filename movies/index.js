@@ -100,9 +100,46 @@ let movieSelector = async movie =>
         }
     });
 
-   movieDetail(resp.data);
+   canvas.innerHTML = movieDetail(resp.data);
 }
 
 let movieDetail = movieObj => {
-    console.log(movieObj);
+    console.log(movieObj); 
+
+    return `
+    <article class="media">
+        <figure class="media-left">
+            <p class="image">
+                <img src="${movieObj.Poster == 'N/A'? '' : movieObj.Poster}" />
+            </p>
+        </figure>
+        <div class="media-content">
+            <div class="content">
+                <h1>${movieObj.Title}</h1>
+                <h4>${movieObj.Genre}</h4>
+                <p />${movieObj.Plot}
+            </div>
+        </div>        
+    </article>
+    <article class="notification is-primary">
+        <p class="title">${movieObj.Awards}</p>
+        <p class="subtitle">Awards</p>
+    </article>
+    <article class="notification is-primary">
+        <p class="title">${movieObj.BoxOffice}</p>
+        <p class="subtitle">BoxOffice</p>
+    </article>
+    <article class="notification is-primary">
+        <p class="title">${movieObj.Metascore}</p>
+        <p class="subtitle">MetaScore</p>
+    </article>
+    <article class="notification is-primary">
+        <p class="title">${movieObj.imdbVotes}</p>
+        <p class="subtitle">imdbVotes</p>
+    </article>
+    <article class="notification is-primary">
+        <p class="title">${movieObj.imdbRating}</p>
+        <p class="subtitle">imdbRating</p>
+    </article>
+    `;
 }
