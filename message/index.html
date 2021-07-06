@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <title>Secret Messenger</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col s6 offset-s2">
+                    <div class="card-panel">
+                        <form>
+                            <input name="message" id="message" />                                                        
+                            <button class="btn">Create</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col s6 offset-s2">
+                    <div id="link-output" class="card-panel hide">
+                        Share this link.<br />       
+                        <input id="msg-out" />
+                    </div>
+                </div>
+            </div>            
+        </div>  
+        <script src="./index.js"></script>      
+    </body>
+</html>
