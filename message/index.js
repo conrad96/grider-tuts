@@ -24,6 +24,5 @@ form.addEventListener('submit', (evt)=> {
     msgOut.select();
 
     document.querySelector('#link-output').classList.remove('hide');
-    document.querySelector('#form-panel').classList.add('hide');
-    console.log(window.location);
+    document.querySelector('#form-panel').classList.add('hide');    
 })
